@@ -1,6 +1,6 @@
-Algorithms and solutions to algorithmic exercises.
+Algorithms and solutions to algorithmic exercises in C++ and Python.
 
-Preferred languages: C++ and Python, but every language and non stdlib library is accepted, but you must provide an automated installation procedure.
+Non stdlib implementations are accepted, but you must provide an installation procedure.
 
 Multiple significantly different implementations are accepted, including in different languages and using different libraries.
 
