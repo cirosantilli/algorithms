@@ -18,6 +18,7 @@ Automatic checks online:
 
 - [TopCoder](http://www.topcoder.com/active-challenges/develop). No solutions. 6M registered users. Money prizes. Some company proposed problems have Non Disclosure Agreements. Timed submission contests.
 - [HackerRank](https://www.hackerrank.com/categories/fp/intro). No solutions, 3M Round A. Timed submission contests.
+- [Kaggle](https://www.kaggle.com/competitions). Data science focused. No solutions. Some problems have money prizes.
 - [Sphere Online Judge (SPOJ)](http://www.spoj.com/problems/classical/all/).  No solutions. 200K users, 10000 problems.
 - [Project Euler](http://projecteuler.net/problems). 350K users, only ~450 problems. No solutions. Since 2001. Probably one of the oldest around, but did not evolve much.
 - [UVa](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=1). 100K registered users. No solutions. Slow website.
