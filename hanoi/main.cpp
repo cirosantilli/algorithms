@@ -8,60 +8,82 @@
 #include "hanoi.hpp"
 
 int main() {
-    typedef unsigned int InputType;
-    typedef std::tuple<std::vector<InputType>,
-                        std::vector<InputType>,
-                        InputType,
-                        std::vector<std::pair<std::vector<InputType>::size_type,InputType>>> InOut;
-    InOut in_outs[]{
-        InOut{
-            {0},
-            {1},
-            3,
-            {
-                {0,1}
-            },
-        },
-        InOut{
-            {0, 0},
-            {1, 1},
-            3,
-            {
-                {0,2},
-                {0,1},
-                {2,1}
-            },
-        },
-    };
-    std::vector<std::pair<std::vector<InputType>::size_type,InputType>> output;
-    for (auto& in_out : in_outs) {
-        auto& initial_position = std::get<0>(in_out);
-        auto& final_position   = std::get<1>(in_out);
-        auto& n_pegs           = std::get<2>(in_out);
-        auto& expected_output  = std::get<3>(in_out);
+    // Classic problem.
+    {
+        typedef std::vector<std::pair<int,int>> OutputType;
+        typedef std::tuple<int, int, int, OutputType> IO;
+        IO in_outs[]{
+            // One moves.
+            IO{1, 0, 1, {{0, 1}}},
+            IO{1, 0, 2, {{0, 2}}},
+            IO{1, 1, 2, {{1, 2}}},
+            IO{2, 0, 1, {{0, 2}, {0, 1}, {2, 1}}},
+            IO{2, 0, 2, {{0, 1}, {0, 2}, {1, 2}}},
+            IO{3, 0, 1, {
+                {0, 1}, {0, 2}, {1, 2},
+                {0, 1}, {2, 0}, {2, 1},
+                {0, 1}
+            }},
+            // Edge case: move to self.
+            IO{1, 0, 0, {}},
+            IO{2, 0, 0, {}},
+        };
+        for (auto& in_out : in_outs) {
+            OutputType output;
+            auto& n_disks         = std::get<0>(in_out);
+            auto& from            = std::get<1>(in_out);
+            auto& to              = std::get<2>(in_out);
+            auto& expected_output = std::get<3>(in_out);
+            Hanoi(n_disks, from, to, output);
 #ifdef DEBUG_OUTPUT
-        std::cout << "initial_position =";
-        for (auto& i : initial_position) std::cout << " " << i;
-        std::cout << std::endl;
-        std::cout << std::endl;
-        std::cout << "final_position =";
-        for (auto& i : initial_position) std::cout << " " << i;
-        std::cout << std::endl;
-        std::cout << std::endl;
-        std::cout << "n_pegs = " << n_pegs << std::endl;
+            std::cout << "output =" << std::endl;
+            for (auto& i : output) std::cout << i.first << " " << i.second << std::endl;
+            std::cout << "expected_output =" << std::endl;
+            for (auto& i : expected_output) std::cout << i.first << " " << i.second << std::endl;
+            std::cout << std::endl;
 #endif
-        HanoiTowers(initial_position, final_position, n_pegs, output);
-#ifdef DEBUG_OUTPUT
-        std::cout << "output.size() = " << output.size() << std::endl;
-        std::cout << "output = ";
-        for (auto& i : output) std::cout << i << " ";
-        std::cout << std::endl;
-        std::cout << "expected_output.size() = " << expected_output.size() << std::endl;
-        std::cout << "expected_output        = ";
-        for (auto& i : expected_output) std::cout << i << " ";
-        std::cout << std::endl;
-        std::cout << std::endl;
-#endif
-        assert(output == expected_output);
+            assert(output == expected_output);
+        }
     }
+
+#ifdef UNDEFINED
+    // Generalized Hanoi. TODO not yet implemented.
+    {
+        typedef unsigned int InputType;
+        typedef std::vector<std::pair<InputType,InputType>> OutputType;
+        typedef std::tuple<std::vector<InputType>,
+                           std::vector<InputType>,
+                           OutputType,
+                           > IO;
+        IO in_outs[]{
+            {
+                {0},
+                {1},
+                3,
+                {
+                    {0, 1}
+                },
+            },
+            {
+                {0, 0},
+                {1, 1},
+                3,
+                {
+                    {0, 2},
+                    {0, 1},
+                    {2, 1}
+                },
+            },
+        };
+        OutputType output;
+        for (auto& in_out : in_outs) {
+            auto& initial_position = std::get<0>(in_out);
+            auto& final_position   = std::get<1>(in_out);
+            auto& n_pegs           = std::get<2>(in_out);
+            auto& expected_output  = std::get<3>(in_out);
+            HanoiAnyState(initial_position, final_position, n_pegs, output);
+            assert(output == expected_output);
+        }
+    }
+#endif
 }

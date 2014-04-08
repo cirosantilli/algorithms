@@ -5,6 +5,28 @@
 #include <vector>
 
 /**
+Solves the classic Hanoi problem starting from any of the 3 pegs `from`
+and ending at any of the 3 pegs `to` in the minimum ammont of moves.
+*/
+template<typename INPUT_TYPE>
+void Hanoi(int n_disks, int from, int to,
+        std::vector<std::pair<INPUT_TYPE,INPUT_TYPE>>& output) {
+    if (from != to) {
+        if (n_disks == 1) {
+            output.push_back(std::pair<int,int>{from,to});
+            return;
+        } else {
+            int other = 3 - to - from;
+            Hanoi(n_disks - 1, from, other, output);
+            output.push_back(std::pair<int,int>{from,to});
+            Hanoi(n_disks - 1, other, to, output);
+        }
+    } else {
+        return;
+    }
+}
+
+/**
 Find a minimal path solution to generalizations of the towers of Hanoi problem.
 
 The generalizations to the classic puzzle include:
@@ -48,36 +70,25 @@ The generalizations to the classic puzzle include:
     is to be moved to the top of the jth peg.
 */
 template<typename INPUT_TYPE>
-void HanoiTowers(const std::vector<INPUT_TYPE>& inital_position,
-                 const std::vector<INPUT_TYPE>& final_position,
-                 const INPUT_TYPE n_pegs,
-                 std::vector<std::pair<typename std::vector<INPUT_TYPE>::size_type,INPUT_TYPE>>& output) {
+void HanoiAnyState(const std::vector<INPUT_TYPE>& initial_position,
+                   const std::vector<INPUT_TYPE>& final_position,
+                   const INPUT_TYPE n_pegs,
+                   std::vector<std::pair<typename std::vector<INPUT_TYPE>::size_type,INPUT_TYPE>>& output) {
     if (n_pegs > 3) {
         throw "Not yet implemented.";
     } else {
-        for (initial_position_it = initial_position.begin(), final_position_it = final_position.begin();
-                initial_position_it != inital_position.end();
-                ++initial_position_it, ++final_position_it) {
+        throw "Not yet implemented.";
+        for (auto initial_position_it = initial_position.begin(), final_position_it = final_position.begin();
+                  initial_position_it != initial_position.end();
+                  ++initial_position_it, ++final_position_it) {
             auto largest_wrong_position = *initial_position_it;
             auto largest_correct_position = *final_position_it;
-            if (largest_wrong_position != largest_correct_position) {  // Largest disk in an incorrect position.
-                auto other_position = 3 - (largest_wrong_position + largest_correct_position);
-                auto new_final_position = std::vector<INPUT_TYPE>(std::next(initial_position_it, 1), initial_position.end());
-                bool more_than_one_move = false;
-                for (auto new_initial_position_it = new_initial_position;
-                        new_initial_position_it != new_initial_position.end();
-                        ++new_initial_position_it) {
-                    if (*new_initial_position_it != other_position) {
-                        *new_final_position_it = other_position;
-                        more_than_one_move = true;
-                    }
-                }
-                if (more_than_one_move) {
-                    std::vector<std::pair<typename std::vector<INPUT_TYPE>::size_type,INPUT_TYPE>>& new_output;
-                    HanoiTowers(new_initial_position, new_final_position, new_output);
-                    output.insert(output.end(), new_output.begin(), new_output.end());
-                }
+            if (largest_wrong_position != largest_correct_position) {
+                auto other_peg = 3 - (largest_wrong_position + largest_correct_position);
+                // TODO Critical steps missing here.
+                //HanoiManyToOne(std::next(initial_position_it), other_peg, n_pegs, output);
                 output.push_back({largest_wrong_position, largest_correct_position});
+                //HanoiOneToMany(other_peg, std::next(final_position_it), n_pegs, output);
             }
         }
     }
