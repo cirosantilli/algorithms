@@ -1,11 +1,15 @@
 /**
+TODO broken
+
+http://www.gnu.org/software/coreutils/manual/html_node/tac-invocation.html
+
 Simple exercise tac implementataion: no error checking or nice interfaces.
 
 Takes a single filename from stdin and tacs it.
 
 Reads fixed chunk sizes from file, never the entire file at a time.
 
-If a line is larger than this chunk size, the program may exit with EXIT_FAILURE and give an error message.
+If a line is larger than this chunk size, the program may exit with `EXIT_FAILURE` and give an error message.
 
 Mimics GNU cat 8.2, which require that the file end in a newline to print the last line ``properly''. Ex:
 
@@ -26,8 +30,6 @@ Gets printed as:
 
 The most delicate part of the implementation are the unsigned index manipulations which require great care.
 */
-
-//#define DEBUG_OUTPUT
 
 #include <stdbool.h>
 #include <stdlib.h>

@@ -1,4 +1,6 @@
-Algorithms and solutions to algorithmic exercises in C++ and Python.
+Algorithms, data structures and solutions to algorithmic exercises in C++.
+
+Educational use only, for serious applications use real libraries like Boost.
 
 Non stdlib implementations are accepted, but you must provide an installation procedure.
 
@@ -28,3 +30,14 @@ Yearly contests:
 - [ACM International Collegiate Programming Contest](http://icpc.baylor.edu/). [Wiki](en.wikipedia.org/wiki/ACM_International_Collegiate_Programming_Contest).  No solutions. Eligibility: less than five years of university education before the contest. Started in 1977. [World final problems](http://icpc.baylor.edu/worldfinals/problems).
 - [Google Code Jam](http://code.google.com/codejam/contests.html). Only a few solutions.
 - [ICFP](http://en.wikipedia.org/wiki/ICFP_Programming_Contest). One problem per year. Since 1998.
+
+# Contributing
+
+[Google C++ style](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml).
+
+Header only implementations because:
+
+- educational only, so writing faster is more important than compiling faster
+- easier to copy paste for programming competitions
+
+Keep one algorithm per header.
