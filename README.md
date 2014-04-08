@@ -1,4 +1,4 @@
-Algorithms, data structures and solutions to algorithmic exercises in C++.
+Algorithms, data structures and algorithmic exercises in C++.
 
 Educational use only, for serious applications use real libraries like Boost.
 

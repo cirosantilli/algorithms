@@ -1,1 +1,1 @@
-cpp_boilerplate/Makefile
+boilerplate/Makefile

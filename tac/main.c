@@ -1,13 +1,7 @@
 /**
-TODO broken
+Take a single filename from stdin and tacs it.
 
-http://www.gnu.org/software/coreutils/manual/html_node/tac-invocation.html
-
-Simple exercise tac implementataion: no error checking or nice interfaces.
-
-Takes a single filename from stdin and tacs it.
-
-Reads fixed chunk sizes from file, never the entire file at a time.
+Reads fixed chunk sizes from file not to overflow RAM.
 
 If a line is larger than this chunk size, the program may exit with `EXIT_FAILURE` and give an error message.
 
