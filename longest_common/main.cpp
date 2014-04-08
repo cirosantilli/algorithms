@@ -8,27 +8,28 @@
 
 int main() {
     typedef int InputType;
+    typedef std::vector<std::vector<InputType>::size_type> OutputType;
     typedef std::tuple<std::vector<InputType>,
-                        std::vector<InputType>,
-                        std::vector<std::vector<InputType>::size_type> > InOut;
-    InOut in_outs[]{
-        InOut{
+                       std::vector<InputType>,
+                       OutputType> IO;
+    IO in_outs[]{
+        IO{
             {0},
             {0},
             {0},
         },
-        InOut{
+        IO{
             {0},
             {1},
             {},
         },
-        InOut{
+        IO{
             {2, 0, 1},
             {0, 2, 1, 0, 3},
             {0, 1},
         },
     };
-    std::vector<std::vector<InputType>::size_type> output;
+    OutputType output;
     for (auto& in_out : in_outs) {
         auto& input0           = std::get<0>(in_out);
         auto& input1           = std::get<1>(in_out);

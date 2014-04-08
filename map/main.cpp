@@ -9,7 +9,7 @@
 #include <list>
 #include <sstream>
 
-#include "bst.hpp"
+//#include "bst.hpp"
 #include "hash.hpp"
 
 int main() {

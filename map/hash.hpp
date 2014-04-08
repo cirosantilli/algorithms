@@ -1,6 +1,8 @@
 #ifndef HASH_H
 #define HASH_H
 
+#include "map.hpp"
+
 template<class KEY>
 size_t hash(KEY key, size_t container_size);
 

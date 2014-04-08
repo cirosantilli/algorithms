@@ -16,7 +16,7 @@ class Map {
     Initialize hash map with single key value pair
     */
     Map(const KEY& key, const VAL& val,
-        size_t keyCountInitial = Hash::keyCountInitialDefault,
+        size_t keyCountInitial = Map::keyCountInitialDefault,
         float loadFactor = 0.7
     ) : Map(keyCountInitial, loadFactor)
     { this->add(key, val); }
@@ -32,8 +32,8 @@ class Map {
     virtual bool add(const KEY& key, const VAL& val) = 0;
     virtual bool del(const KEY& key) = 0;
     virtual bool find(const KEY& key, VAL& val) const = 0;
-    virtual bool operator==(const Hash<KEY,VAL>& other) const = 0;
-    virtual bool operator!=(const Hash<KEY,VAL>& other) const = 0;
+    virtual bool operator==(const Map<KEY,VAL>& other) const = 0;
+    virtual bool operator!=(const Map<KEY,VAL>& other) const = 0;
     virtual std::string str() const = 0;
 
     /**
@@ -44,7 +44,7 @@ class Map {
     /**
     ostream << operator. Based on str.
     */
-    friend std::ostream& operator<<(std::ostream& os, const Hash<KEY,VAL>& rhs) { return os << rhs.str(); }
+    friend std::ostream& operator<<(std::ostream& os, const Map<KEY,VAL>& rhs) { return os << rhs.str(); }
 };
 
 #endif
