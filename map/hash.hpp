@@ -18,17 +18,28 @@ Hash map.
 @tparam VAL the value value of the map
 */
 template<class KEY,class VAL>
-class Hash : Map<KEY,VAL> {
+class Hash : public Map<KEY,VAL> {
     typedef std::vector<std::list<std::pair<KEY,VAL>>> map_t;
     public:
-        Hash(
-            size_t keyCountInitial = Hash::keyCountInitialDefault,
-            float loadFactor = 0.7
-           ) :
-            keyCount(keyCountInitial),
-            loadFactor(loadFactor),
-            map(map_t(keyCount))
+        using Map<KEY,VAL>::init_initializer;
+        using Map<KEY,VAL>::add;
+        Hash(size_t keyCountInitial = Hash::keyCountInitialDefault,
+             float loadFactor = 0.7
+        ):
+             keyCount(keyCountInitial),
+             loadFactor(loadFactor),
+             map(map_t(keyCount))
         {};
+
+        Hash(const KEY& key, const VAL& val,
+             size_t keyCountInitial = Hash::keyCountInitialDefault,
+             float loadFactor = 0.7
+        ) : Hash(keyCountInitialDefault, loadFactor)
+        { this->init_pair(key, val); }
+
+        Hash(std::initializer_list<std::pair<KEY,VAL>> pairs) : Hash() { this->init_initializer(pairs); }
+
+        virtual ~Hash() {}
 
         bool add(const KEY& key, const VAL& val) {
             size_t h, newKeyCount, newSize;
@@ -81,7 +92,7 @@ class Hash : Map<KEY,VAL> {
             return false;
         }
 
-        bool find(const KEY& key, VAL& val) const {
+        bool find(const KEY& key, VAL& val) {
             size_t h;
             h = hash<KEY>(key, map.size());
             for (auto& pair : map[h]) {

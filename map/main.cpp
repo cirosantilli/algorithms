@@ -19,7 +19,6 @@ int main() {
     // TODO broken.
     //typedef Bst<int,int> map_t;
 
-    //map_t mapOrig(0, 1);
     map_t mapOrig{
         { 0, 1},
         { 1, 2},
@@ -44,11 +43,11 @@ int main() {
             // - one child
             // - 0   children
 
-                //mapOrig.add( 2, 3);
-                //mapOrig.add( 1, 2);
-                //mapOrig.add( 3, 4);
-                //mapOrig.add( 4, 5);
-                //mapOrig.add(-1, 0);
+                mapOrig.add( 2, 3);
+                mapOrig.add( 1, 2);
+                mapOrig.add( 3, 4);
+                mapOrig.add( 4, 5);
+                mapOrig.add(-1, 0);
 
         //<<
 
@@ -57,24 +56,17 @@ int main() {
         //find
 
             map = mapOrig;
-
-            assert(! map.find(-2, val));
-
+            assert(!map.find(-2, val));
             assert(map.find(-1, val));
             assert(val == 0);
-
             assert(map.find(0, val));
             assert(val == 1);
-
             assert(map.find(1, val));
             assert(val == 2);
-
             assert(map.find(2, val));
             assert(val == 3);
-
             assert(map.find(3, val));
             assert(val == 4);
-
             assert(map.find(4, val));
             assert(val == 5);
 
@@ -82,7 +74,6 @@ int main() {
 
                 map = mapOrig;
                 assert(map == mapOrig);
-
                 map.add(5, 6);
                 assert(map != mapOrig);
 
@@ -105,7 +96,7 @@ int main() {
 
         // Hash map tests.
 
-            //add at powers of 2 the 0 hash so they clutter at hash 0
+            // Add at powers of 2 the 0 hash so they clutter at hash 0
             map = map_t(0, 1);
             map.add( 1,  2);
             map.add( 2,  3);
@@ -119,6 +110,6 @@ int main() {
 
             //del
             map.del(0);
-            assert(! map.find(0, val));
+            assert(!map.find(0, val));
     }
 }

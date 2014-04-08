@@ -8,6 +8,12 @@
 #include "map.hpp"
 
 /**
+Current implementation is bad becuase it does not differentiate between the tree and its nodes:
+empty nodes are NULL.
+The problem is that this makes it harder to represent an empty map.
+TODO convert to two clases:
+one root, and other for nodes only.
+
 Binary search tree node.
 
 Implements a map.
@@ -24,14 +30,23 @@ A better possibility may be to make every operator operate nodewise, and give no
 version of those operators.
 */
 template<class KEY, class VAL>
-class Bst : Map<KEY,VAL> {
+class Bst : public Map<KEY,VAL> {
     KEY key;
     VAL val;
     Bst<KEY,VAL>* left;
     Bst<KEY,VAL>* right;
     public:
+        using Map<KEY,VAL>::init_initializer;
+        using Map<KEY,VAL>::add;
         Bst() : key(0), val(0), left(NULL), right(NULL) {}
+
         Bst(const KEY& key, const VAL& val) : key(key), val(val), left(NULL), right(NULL) {}
+
+        // TODO broken here. The problem is the edge condition for the first pair.
+        // Either the root is treated differently, or this cons
+        Bst(std::initializer_list<std::pair<KEY,VAL>> pairs) {
+            this->init_initializer(pairs);
+        }
 
         Bst(const Bst& other) : key(other.key), val(other.val) {
             if (other.hasLeft()) {
@@ -100,8 +115,7 @@ class Bst : Map<KEY,VAL> {
         /*
         Add a key to the Bst below current node.
 
-        Retuns `true` if the key was inserted sucessfuly,
-        `false` if it was already present.
+        Retuns `true` if the key was inserted sucessfuly, `false` if it was already present.
         */
         bool add(const KEY& key, const VAL& val) {
             Bst<KEY,VAL>* cur = this;
@@ -242,9 +256,7 @@ class Bst : Map<KEY,VAL> {
 
 
         /**
-        #todo
-
-        How to make this const correct? In particular, how to call findNode if it were const?
+        TODO How to make this const correct? In particular, how to call findNode if it were const?
         */
         bool find(const KEY& key, VAL& val) {
             Bst<KEY,VAL> *node;
@@ -265,7 +277,7 @@ class Bst : Map<KEY,VAL> {
         bool del(const KEY& key) {
             Bst<KEY,VAL> *node, *parent, *nextNode, *nextNodeParent; // nextNode: first node that has a larger key than key
             bool hasLeft, hasRight;
-            int nodeLr, nextNodeLr;
+            int nodeLr;
             //this->findNode(key, node);
             nodeLr = this->findNodeAndParent(key, parent, node);
             if (node == NULL)
@@ -311,28 +323,29 @@ class Bst : Map<KEY,VAL> {
         Get DFS preorder string representation of map.
         */
         std::string str() const {
-            bool hasLeft = rhs.hasLeft();
-            bool hasRight = rhs.hasRight();
+            bool hasLeft  = this->hasLeft();
+            bool hasRight = this->hasRight();
             std::string stringLeft;
             std::string stringRight;
             std::stringstream ss;
-            ss << rhs.key << ": ";
+            ss << this->key << ": ";
+            ss << this->val << " | ";
             if (hasLeft) {
-                ss << rhs.left->key;
+                ss << this->left->key;
             } else {
                 ss << "NULL";
             }
             ss << ", ";
             if (hasRight) {
-                ss << rhs.right->key;
+                ss << this->right->key;
             } else {
                 ss << "NULL";
             }
             ss << std::endl;
             if (hasLeft)
-                ss << *(rhs.left);
+                ss << *(this->left);
             if (hasRight)
-                ss << *(rhs.right);
+                ss << *(this->right);
             return ss.str();
         }
 

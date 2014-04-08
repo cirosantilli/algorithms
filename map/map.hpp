@@ -4,7 +4,7 @@
 #include <utility>          // pair
 
 /**
-Map interface, to be implemented by other classes.
+Map abstract class.
 
 @tparam KEY the key type of the map
 @tparam VAL the value type value of the map.
@@ -12,39 +12,40 @@ Map interface, to be implemented by other classes.
 */
 template<class KEY,class VAL>
 class Map {
-    /**
-    Initialize hash map with single key value pair
-    */
-    Map(const KEY& key, const VAL& val,
-        size_t keyCountInitial = Map::keyCountInitialDefault,
-        float loadFactor = 0.7
-    ) : Map(keyCountInitial, loadFactor)
-    { this->add(key, val); }
+    public:
+        /**
+        Initialize map with key value pairs.
 
-    /**
-    Initialize map with many key value pairs.
-    */
-    Map(std::initializer_list<std::pair<KEY,VAL>> pairs) : Map() {
-        for (auto& pair : pairs)
-            this->add(pair);
-    }
+        Cannot be done from a constructor because relies on virtual method `add`
 
-    virtual bool add(const KEY& key, const VAL& val) = 0;
-    virtual bool del(const KEY& key) = 0;
-    virtual bool find(const KEY& key, VAL& val) const = 0;
-    virtual bool operator==(const Map<KEY,VAL>& other) const = 0;
-    virtual bool operator!=(const Map<KEY,VAL>& other) const = 0;
-    virtual std::string str() const = 0;
+        <http://stackoverflow.com/questions/496440/c-virtual-function-from-constructor>
+        */
+        void init_pair(const KEY& key, const VAL& val) { this->add(key, val); }
+        void init_initializer(std::initializer_list<std::pair<KEY,VAL>> pairs) {
+            for (auto& pair : pairs) {
+                this->add(pair);
+            }
+        }
 
-    /**
-    std::pair add based on add(key,val).
-    */
-    bool add(const std::pair<KEY,VAL>& pair) { return add(std::get<0>(pair), std::get<1>(pair)); }
+        virtual bool add(const KEY& key, const VAL& val) = 0;
+        virtual bool del(const KEY& key) = 0;
+        // TODO Should be const, waiting for Bst find to become const.
+        virtual bool find(const KEY& key, VAL& val) = 0;
+        // TODO how to add those to the interface? Does not override because
+        // derived class signature is different (Hash instead of Map).
+        //virtual bool operator==(const Map<KEY,VAL>& other) const = 0;
+        //virtual bool operator!=(const Map<KEY,VAL>& other) const = 0;
+        virtual std::string str() const = 0;
 
-    /**
-    ostream << operator. Based on str.
-    */
-    friend std::ostream& operator<<(std::ostream& os, const Map<KEY,VAL>& rhs) { return os << rhs.str(); }
+        /**
+        std::pair add based on add(key,val).
+        */
+        bool add(const std::pair<KEY,VAL>& pair) { return add(pair.first, pair.second); }
+
+        /**
+        ostream << operator. Based on str.
+        */
+        friend std::ostream& operator<<(std::ostream& os, const Map<KEY,VAL>& rhs) { return os << rhs.str(); }
 };
 
 #endif
