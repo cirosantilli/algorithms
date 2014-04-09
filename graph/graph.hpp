@@ -9,6 +9,8 @@
 #include <vector>
 
 /**
+TODO use vector of destination edge properties maps representation.
+
 Represents a directed graph via adjency lists.
 
 @todo use array of destionation -> edge properties hash maps implementation. Currently uses array of tuples.
@@ -163,8 +165,7 @@ class GraphList {
                     std::vector<EdgeNumberType>& path) {}
 
     private:
-        std::vector<std::vector<Edge> > nodes;
-
+        std::vector<std::vector<Edge>> nodes;
         friend std::ostream& operator<<(std::ostream& os, const GraphList& rhs) {
             return os << rhs.str();
         }
