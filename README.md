@@ -1,3 +1,5 @@
+# Algorithms
+
 Algorithms, data structures and algorithmic exercises in C++.
 
 Educational use only, for serious applications use real libraries like Boost.
@@ -12,7 +14,7 @@ Intuitive explanation and complexity analysis are accepted.
 
 Solutions to *algorithmic* programming exercises are accepted. If after modeling the problem it boils down to a single well known algorithm algorithm, only state the model and which algorithm to use, but don't code anything.
 
-# Places where you can find algorithmic problems
+## Places where you can find algorithmic problems
 
 Most of the websites don't have solutions. One good way to search for unofficial solutions to GitHub search for the contest name.
 
@@ -31,7 +33,51 @@ Yearly contests:
 - [Google Code Jam](http://code.google.com/codejam/contests.html). Only a few solutions.
 - [ICFP](http://en.wikipedia.org/wiki/ICFP_Programming_Contest). One problem per year. Since 1998.
 
-# Contributing
+## Algorithms that could be included
+
+Haven't added them because I'm lazy to code them:
+
+-   <http://stackoverflow.com/questions/2113795/quickest-way-to-find-missing-number-in-an-array-of-numbers>
+
+    Find the missing number of an increasing sequence that has been mixed up.
+
+    E.g., start with:
+
+        1 2 3 4 5 6
+
+    Mix up:
+
+        6 3 5 4 2 1
+
+    Remove an unknown number:
+
+        6 5 4 2 1
+
+    Which number was removed?
+
+    Solution: sum up, use the sum formula, take difference.
+
+-   <http://stackoverflow.com/questions/3492302/easy-interview-question-got-harder-given-numbers-1-100-find-the-missing-numbe>
+
+    Same as above, but remove 2 numbers instead.
+
+-   <http://stackoverflow.com/questions/1586858/find-the-smallest-integer-not-in-a-list>
+
+    Find the smallest non negative integer *not* in an unsorted array of length `N`.
+
+    The array is stored in RAM.
+
+    Application: generate unique IDs in a system where any ID can be removed.
+
+    Solution intuition:
+
+    - `N` is the largest possible value in case of an increasing sequence. This means that you can throw away any number larger than `N`.
+    - if the array were sorted, it would be easy.
+    - there are non-comparison sorting algorithms for integers in a fixed range that perform $O(N)$ time $O(1)$ memory.
+
+    Solution: 2 passes, first try to put every number smaller than `N` in the array position with same value as the number. If already occupied by another number, do the same for the other number. Throw away anything larger than `N`.
+
+## Contributing
 
 [Google C++ style](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml).
 

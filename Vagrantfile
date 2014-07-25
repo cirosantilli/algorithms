@@ -1,1 +1,1 @@
-cpp-boilerplate/Vagrantfile
+boilerplate/Vagrantfile

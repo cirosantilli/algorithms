@@ -1,1 +1,1 @@
-cpp-boilerplate/.vimrc
+boilerplate/.vimrc

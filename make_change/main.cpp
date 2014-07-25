@@ -6,8 +6,8 @@
 
 int main() {
     typedef std::tuple<std::vector<int>,
-                        int,
-                        std::vector<int> > InOut;
+                       int,
+                       std::vector<int>> InOut;
 
     InOut in_outs[]{
         InOut{
