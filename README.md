@@ -35,8 +35,6 @@ Yearly contests:
 
 ## Algorithms that could be included
 
-Haven't added them because I'm lazy to code them:
-
 -   <http://stackoverflow.com/questions/2113795/quickest-way-to-find-missing-number-in-an-array-of-numbers>
 
     Find the missing number of an increasing sequence that has been mixed up.
@@ -76,6 +74,18 @@ Haven't added them because I'm lazy to code them:
     - there are non-comparison sorting algorithms for integers in a fixed range that perform $O(N)$ time $O(1)$ memory.
 
     Solution: 2 passes, first try to put every number smaller than `N` in the array position with same value as the number. If already occupied by another number, do the same for the other number. Throw away anything larger than `N`.
+
+-   String metrics: <http://en.wikipedia.org/wiki/String_metric>
+
+    Subjective as application dependant, and the only thing to optimize is to match "what humans think is sensible".
+
+    Formal definitions set the basic operations, and what must be optimized.
+
+    -   <http://en.wikipedia.org/wiki/Levenshtein_distance>
+
+        The most famous one. Operations: single char addition, deletion and substitution. Dynamic programming algorithm.
+
+-   <http://en.wikipedia.org/wiki/String_searching_algorithm>
 
 ## Contributing
 
