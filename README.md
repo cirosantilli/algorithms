@@ -10,7 +10,7 @@ Multiple significantly different implementations are accepted, including in diff
 
 Every algorithm is tested on a standard virtual machine with fixed memory and CPU, and has CPU time measured.
 
-Intuitive explanation and complexity analysis are accepted.
+Intuitive algorithm explanation and complexity analysis will not be included here. Consider <https://github.com/cirosantilli/comp-sci> instead.
 
 Solutions to *algorithmic* programming exercises are accepted. If after modeling the problem it boils down to a single well known algorithm algorithm, only state the model and which algorithm to use, but don't code anything.
 
@@ -18,7 +18,7 @@ Solutions to *algorithmic* programming exercises are accepted. If after modeling
 
 Most of the websites don't have solutions. One good way to search for unofficial solutions to GitHub search for the contest name.
 
-Automatic checks online:
+Problem sources automatic online checks:
 
 - [TopCoder](http://www.topcoder.com/active-challenges/develop). No solutions. 6M registered users. Money prizes. Some company proposed problems have Non Disclosure Agreements. Timed submission contests.
 - [HackerRank](https://www.hackerrank.com/categories/fp/intro). No solutions, 3M Round A. Timed submission contests.
@@ -32,6 +32,10 @@ Yearly contests:
 - [ACM International Collegiate Programming Contest](http://icpc.baylor.edu/). [Wiki](en.wikipedia.org/wiki/ACM_International_Collegiate_Programming_Contest).  No solutions. Eligibility: less than five years of university education before the contest. Started in 1977. [World final problems](http://icpc.baylor.edu/worldfinals/problems).
 - [Google Code Jam](http://code.google.com/codejam/contests.html). Only a few solutions.
 - [ICFP](http://en.wikipedia.org/wiki/ICFP_Programming_Contest). One problem per year. Since 1998.
+
+Problem sources without automatic online checks:
+
+- <http://rubyquiz.com/index.html>. Solutions in Ruby. 150 problems, not active.
 
 ## Algorithms that could be included
 
@@ -61,7 +65,7 @@ Yearly contests:
 
 -   <http://stackoverflow.com/questions/1586858/find-the-smallest-integer-not-in-a-list>
 
-    Find the smallest non negative integer *not* in an unsorted array of length `N`.
+    Find the smallest non-negative integer *not* in an unsorted array of length `N`.
 
     The array is stored in RAM.
 
@@ -77,6 +81,8 @@ Yearly contests:
 
 -   String metrics: <http://en.wikipedia.org/wiki/String_metric>
 
+    The length of the already implemented longest common subsequence result is a metric, although it is too local to be practically used as a metric.
+
     Subjective as application dependant, and the only thing to optimize is to match "what humans think is sensible".
 
     Formal definitions set the basic operations, and what must be optimized.
@@ -86,6 +92,12 @@ Yearly contests:
         The most famous one. Operations: single char addition, deletion and substitution. Dynamic programming algorithm.
 
 -   <http://en.wikipedia.org/wiki/String_searching_algorithm>
+
+-   <http://en.wikipedia.org/wiki/Sequence_alignment> seem to be string search algorithms with more complex metrics. Used in practice in bioinformatics.
+
+-   <http://en.wikipedia.org/wiki/Longest_repeated_substring_problem>
+
+-   <http://en.wikipedia.org/wiki/Approximate_string_matching>
 
 ## Contributing
 
