@@ -18,6 +18,8 @@ Solutions to *algorithmic* programming exercises are accepted. If after modeling
 
 Most of the websites don't have solutions. One good way to search for unofficial solutions to GitHub search for the contest name.
 
+Huge list of problem sets at: <https://github.com/vhf/free-programming-books/blob/893072fbbb5702ab7853dc0cc784595e4cf5b1b4/problem-sets-competitive-programming.md>
+
 Problem sources automatic online checks:
 
 - [TopCoder](http://www.topcoder.com/active-challenges/develop). No solutions. 6M registered users. Money prizes. Some company proposed problems have Non Disclosure Agreements. Timed submission contests.
@@ -98,6 +100,8 @@ Problem sources without automatic online checks:
 -   <http://en.wikipedia.org/wiki/Longest_repeated_substring_problem>
 
 -   <http://en.wikipedia.org/wiki/Approximate_string_matching>
+
+-   <https://en.wikipedia.org/wiki/Out-of-core_algorithm>. We currently have `tac`.
 
 ## Contributing
 

@@ -61,6 +61,7 @@ int main(int argc, char* argv[]) {
     printf("buffer                  = ");
     fwrite(buffer, sizeof(char), nbytes_read, stdout);
 #endif
+    /* TODO replace with strrchr */
     for (size_t i = nbytes_read - 1; i < nbytes_read; --i) {
 #ifdef DEBUG_OUTPUT
       printf("i                     = %zu\n", i);
