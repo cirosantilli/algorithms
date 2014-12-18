@@ -54,7 +54,7 @@ Note how at each step the read is reduced, and at the front there is a lot of wa
 
 The solution is to use a circular buffer: <https://en.wikipedia.org/wiki/Circular_buffer>.
 
-There are two possible implementations.
+There are two possible implementations:
 
 Double buffer implementation:
 
@@ -91,6 +91,9 @@ With the double buffer technique, it would work as follows:
 
     |                         |
     | n 5 . n 4 . . n         |
+
+    |                         |
+    | n 5 .n                  |
 
     |                         |
     | n                       |
