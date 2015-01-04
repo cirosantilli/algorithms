@@ -1,1 +1,10 @@
-boilerplate/.gitignore
+# Compiled languages
+*.o
+*.out
+
+# Java
+*.class
+
+# Eclipse
+.classpath
+.project

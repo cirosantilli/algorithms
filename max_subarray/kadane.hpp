@@ -68,13 +68,9 @@ void Kadane(
     begin_temp = input_begin;
     end = input_begin;
     max_so_far = -1;
-    max_ending_here = -1;  // Holds the frontier value of K[i-1].
+    // Holds the frontier value of K[i-1].
+    max_ending_here = -1;
     for (auto it = input_begin; it != input_end; ++it) {
-#ifdef DEBUG_OUTPUT
-        std::cout << "*it = " << *it << std::endl;
-        std::cout << "max_ending_here = " << max_ending_here << std::endl;
-        std::cout << std::endl;
-#endif
         if (max_ending_here <= 0) {
             max_ending_here = *it;
             begin_temp = it;

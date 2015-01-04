@@ -1,4 +1,13 @@
-TODO broken
+# Tac
+
+## Usage
+
+Run tests for a given language:
+
+    test c
+    test java
+
+## Discussion
 
 <http://www.gnu.org/software/coreutils/manual/html_node/tac-invocation.html>
 
@@ -63,7 +72,7 @@ Double buffer implementation:
 
 Circular buffer implementation:
 
-- read two chunks
+- read two chunks from disk every time
 
 Advantage of circular: uses half the RAM.
 

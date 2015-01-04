@@ -1,27 +1,29 @@
-#ifndef MERGE_H
-#define MERGE_H
-
 #include <algorithm>    // copy
 #include <cmath>        // pow, ceil
 #include <vector>
 
-#ifdef DEBUG
-#include <iostream>     // cout, endl
-#endif
+#include "sort.hpp"
 
 /**
-Sort the input vector via merge sort.
+Sort the input vector via merge sort inline.
 
-Time complexity:     $O(input.size() log input.size())$
+Time complexity: $O(input.size() log input.size())$
 
-Extra memory excluting input:   $O(input.size())$
+Memory complexity excluding input: $O(input.size())$
 
 @parm[in,out]  input      The input vector to be sorted. It shall be modified to contain the output.
 @tparm         COMPARABLE A type that supports operators `<` and `==`.
 */
 template<typename COMPARABLE = int>
-void MergeSort(std::vector<COMPARABLE>& input) {
-    typename std::vector<COMPARABLE>::size_type input_size, current_size, left0, right0, left1, right1, output_position, size_pow2;
+void merge_sort(std::vector<COMPARABLE>& input) {
+    typename std::vector<COMPARABLE>::size_type input_size,
+             current_size,
+             left0,
+             right0,
+             left1,
+             right1,
+             output_position,
+             size_pow2;
     typename std::vector<COMPARABLE>::iterator output_begin;
     auto input_begin = input.begin();
     input_size = input.size();
@@ -32,9 +34,6 @@ void MergeSort(std::vector<COMPARABLE>& input) {
     current_size = 1;
     output_begin = output.begin();
     while (current_size <= size_pow2 / 2) {
-#ifdef DEBUG_OUTPUT
-        std::cout << "current_size = " << current_size << std::endl << std::endl;
-#endif
         output_position = 0;
         while (output_position < input_size) {
             left0  = output_position;
@@ -51,13 +50,6 @@ void MergeSort(std::vector<COMPARABLE>& input) {
                 right1 = input_size;
             }
             while (true) {
-#ifdef DEBUG_OUTPUT
-                std::cout << "output_position = " << output_position << std::endl;
-                std::cout << "left0  = " << left0  << std::endl;
-                std::cout << "right0 = " << right0 << std::endl;
-                std::cout << "left1  = " << left1  << std::endl;
-                std::cout << "right1 = " << right1 << std::endl;
-#endif
                 if (left0 == right0) {
                     std::copy(input_begin + left1, input_begin + right1, output_begin + output_position);
                     output_position += right1 - left1;
@@ -75,12 +67,6 @@ void MergeSort(std::vector<COMPARABLE>& input) {
                     left1++;
                 }
                 output_position++;
-#ifdef DEBUG_OUTPUT
-                std::cout << "output = ";
-                for (auto& i : output) std::cout << i << " ";
-                std::cout << std::endl;
-                std::cout << std::endl;
-#endif
             }
         }
         input = output;
@@ -88,4 +74,8 @@ void MergeSort(std::vector<COMPARABLE>& input) {
     }
 }
 
-#endif
+int main(int argc, char **argv) {
+    std::vector<int> input = parse_input(argv[1]);
+    merge_sort(input);
+    print_output(input);
+}
