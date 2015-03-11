@@ -13,4 +13,4 @@ Advantages:
 Disadvantages:
 
 - we cannot reuse already compiled `.hpp` parts
-- we cannot reuse the main runners
+- we cannot reuse the main runners. The ideal reuse would be through a polymorphic interface. But then we'd lose the advantage of being able to compile and run each file independently.
