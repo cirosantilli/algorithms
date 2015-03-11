@@ -1,13 +1,8 @@
-#ifndef MAKE_CHANGE_H
-#define MAKE_CHANGE_H
-
-#include <vector>
-
-#ifdef DEBUG
+#include <algorithm>    // TODO why required?
+#include <cassert>
 #include <iostream>     // cout, endl
-#endif
 
-void VectorSum(const std::vector<int>& v0, const std::vector<int>& v1,
+void vector_sum(const std::vector<int>& v0, const std::vector<int>& v1,
         std::vector<int>& output) {
     output.resize(v0.size());
     for (std::vector<int>::size_type i = 0; i < v0.size(); ++i)
@@ -30,7 +25,7 @@ with one of the values inside `coin_values` that sums up to exactly `total`.
 
     If the total is not attainable, this container shall be empty.
 */
-void MakeChange(const std::vector<int>& coin_values, int total, std::vector<int>& output) {
+void make_change(const std::vector<int>& coin_values, int total, std::vector<int>& output) {
     std::vector<bool> possible(total + 1, false);
     std::vector<int> coin_counts(total + 1, std::numeric_limits<int>::max());
     std::vector<std::vector<int> > solutions(total + 1, std::vector<int>(coin_values.size(), 0));
@@ -43,30 +38,12 @@ void MakeChange(const std::vector<int>& coin_values, int total, std::vector<int>
         coin_counts[coin_value] = 1;
     }
     for (int subtotal = 1; subtotal <= total; ++subtotal) {
-#ifdef DEBUG_OUTPUT
-        std::cout << "subtotal = " << subtotal << std::endl;
-        std::cout << "possible    = ";
-        for (auto i : possible) std::cout << i << " ";
-        std::cout << std::endl;
-        std::cout << "coin_counts = ";
-        for (auto& i : coin_counts) std::cout << i << " ";
-        std::cout << std::endl;
-        std::cout << std::endl;
-#endif
         int min_coin_count = coin_counts[subtotal];
         int best_first, best_second;
         bool cur_possible = false;
         for (int first = 0; first <= subtotal / 2; ++first) {
             int second = subtotal - first;
             if (possible[first] && possible[second]) {
-#ifdef DEBUG_OUTPUT
-                std::cout << "first = " << first << std::endl;
-                std::cout << "second = " << second << std::endl;
-                std::cout << "coin_counts[first] = " << coin_counts[first] << std::endl;
-                std::cout << "coin_counts[second] = " << coin_counts[second] << std::endl;
-                std::cout << "min_coin_count = " << min_coin_count << std::endl;
-                std::cout << std::endl;
-#endif
                 int new_coin_count = coin_counts[first] + coin_counts[second];
                 if (new_coin_count < min_coin_count) {
                     best_first = first;
@@ -80,26 +57,35 @@ void MakeChange(const std::vector<int>& coin_values, int total, std::vector<int>
             possible[subtotal] = true;
             coin_counts[subtotal] = coin_counts[best_first]
                 + coin_counts[best_second];
-            VectorSum(solutions[best_first], solutions[best_second], solutions[subtotal]);
+            vector_sum(solutions[best_first], solutions[best_second], solutions[subtotal]);
         }
     }
-#ifdef DEBUG_OUTPUT
-    std::cout << "possible    = ";
-    for (auto i : possible) std::cout << i << " ";
-    std::cout << std::endl;
-    std::cout << "coin_counts = ";
-    for (auto& i : coin_counts) std::cout << i << " ";
-    std::cout << std::endl;
-    std::cout << std::endl;
-    for (auto& solution : solutions) {
-        for (auto& i : solution) {
-            std::cout << i << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-#endif
     output = solutions[total];
 }
 
-#endif
+int main() {
+    typedef std::tuple<std::vector<int>,
+                       int,
+                       std::vector<int>> InOut;
+
+    InOut in_outs[]{
+        InOut{
+            {1, 3, 4},
+            6,
+            {0, 2, 0}
+        },
+        InOut{
+            {1, 3, 4, 7, 11, 24},
+            1731,
+            {0, 1, 0, 0, 0, 72}
+        },
+    };
+    for (auto& in_out : in_outs) {
+        auto& coin_values = std::get<0>(in_out);
+        auto& total  = std::get<1>(in_out);
+        auto& expected_output = std::get<2>(in_out);
+        std::vector<int> output;
+        make_change(coin_values, total, output);
+        assert(output == expected_output);
+    }
+}

@@ -1,13 +1,15 @@
 #ifndef BST_H
 #define BST_H
 
-#include <algorithm>    // swap
+#include <algorithm> // swap
 #include <sstream>
 #include <string>
 
 #include "map.hpp"
 
 /**
+TODO broken
+
 Current implementation is bad becuase it does not differentiate between the tree and its nodes:
 empty nodes are NULL.
 The problem is that this makes it harder to represent an empty map.

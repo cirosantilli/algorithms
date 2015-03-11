@@ -2,49 +2,62 @@
 
 Algorithms, data structures and algorithmic exercises.
 
-More theoretical information may be found at: <https://github.com/cirosantilli/computer-science>
+More theoretical information can be found at: <https://github.com/cirosantilli/computer-science>
+
+Infrastructure:
+
+- [src/](src/): source code of educational implementations
+- [data/](data/): data input and output for some of the problems
+- [test](test): script to test the implementations
+
+Algorithms:
+
+- [Change making](change-making.md)
+- [Graph](graph.md)
+- [Hanoi tower](hanoi-tower.md)
+- [Knapsack](knapsack.md)
+- [Longest common subsequence](longest-common-subsequence.md)
+- [Longest increasing subsequence](longest-increasing-subsequence.md)
+- [Maximum subarray](maximum-subarray.md)
+- [Map](map.md)
+- [tac](tac.md)
 
 ## Usage
 
-Install build dependencies on Ubuntu:
+Dependencies:
 
-    ./configure
-
-The dependencies are:
-
-    gcc >= 4.8
-    g++ >= 4.8
-    Java >= 1.7
-    make (POSIX)
+- `make` (POSIX)
+- `gcc` >= 4.8
+- `g++` >= 4.8
+- Java >= 1.7
 
 Then:
 
-    cd some-algorithm
-    make run
+    test tac.c
 
-This will build and run the `main.cpp` file in that directory, or analogous main for other language, e.g. `Main.java`, etc.
+or equivalently:
 
----
+    test src/c/tac.c
+
+This will build the program, choose and feed input data to it, and check if the output is as expected.
+
+More info at (TODO implement help command):
+
+    test --help
+
+## About
 
 Educational use only, for serious applications use real libraries like Boost.
 
-Non stdlib implementations are accepted, but you must provide an installation procedure.
-
 Multiple significantly different implementations are accepted, including in different languages and using different libraries.
-
-Every algorithm is tested on a standard virtual machine with fixed memory and CPU, and has CPU time measured.
-
-Intuitive algorithm explanation and complexity analysis for well known algorithms might be present at <https://github.com/cirosantilli/comp-sci> instead of here.
 
 Solutions to *algorithmic* programming exercises are accepted. If after modeling the problem it boils down to a single well known algorithm algorithm, only state the model and which algorithm to use, but don't code anything.
 
-## Places where you can find algorithmic problems
-
-Most of the websites don't have solutions. One good way to search for unofficial solutions to GitHub search for the contest name.
+## Algorithmic problem sources
 
 Huge list of problem sets at: <https://github.com/vhf/free-programming-books/blob/893072fbbb5702ab7853dc0cc784595e4cf5b1b4/problem-sets-competitive-programming.md>
 
-Problem sources automatic online checks:
+My favorites are:
 
 - [TopCoder](http://www.topcoder.com/active-challenges/develop). No solutions. 6M registered users. Money prizes. Some company proposed problems have Non Disclosure Agreements. Timed submission contests.
 - [HackerRank](https://www.hackerrank.com/categories/fp/intro). No solutions, 3M Round A. Timed submission contests.
@@ -64,7 +77,9 @@ Problem sources without automatic online checks:
 
 - <http://rubyquiz.com/index.html>. Solutions in Ruby. 150 problems, not active.
 
-## Algorithms that could be included
+## TODO
+
+Algorithms that could be included
 
 -   <http://stackoverflow.com/questions/2113795/quickest-way-to-find-missing-number-in-an-array-of-numbers>
 
@@ -111,14 +126,3 @@ Problem sources without automatic online checks:
 -   <http://en.wikipedia.org/wiki/Partition_problem>. Partition a multiset into two sub-multisets such that the sum of each sub-multiset is equal. NP-complete.
 
     Many not have a solution, which leads to the optimization version: minimize the difference. NP-hard.
-
-## Contributing
-
-[Google C++ style](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml).
-
-Header only implementations because:
-
-- educational only, so writing faster is more important than compiling faster
-- easier to copy paste for programming competitions
-
-Keep one algorithm per header.

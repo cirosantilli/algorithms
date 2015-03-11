@@ -1,12 +1,8 @@
-#ifndef LONGEST_INCREASING_H
-#define LONGEST_INCREASING_H
-
-#include <algorithm>    // lower_bound
+#include <algorithm> // lower_bound
+#include <cassert>
+#include <iostream>  // cout
+#include <utility>   // get, pair
 #include <vector>
-
-#ifdef DEBUG
-#include <iostream>     // cout, endl
-#endif
 
 /**
 Computes the longest increasing subsequence of the given input.
@@ -42,7 +38,7 @@ This can be classified as a dynamic programming algorithm, since it relies on th
 to solve the larger problem, and stores the sub solutions for later use.
 */
 template<typename T>
-void LongestIncreasingSubsequence(const std::vector<T>& input,
+void longest_increasing_subsequence(const std::vector<T>& input,
         std::vector<typename std::vector<T>::size_type>& output) {
     typedef typename std::vector<T>::size_type IndexType;
     std::vector<IndexType> M(input.size(), 0);  // M[j] = index of the smallest possible last element of the longest subsequence of length j - 1.
@@ -65,18 +61,6 @@ void LongestIncreasingSubsequence(const std::vector<T>& input,
                 L = std::max(L, j + 1);
             }
         }
-#ifdef DEBUG
-        std::cout << "i = " << i << std::endl;
-        std::cout << "j = " << j << std::endl;
-        std::cout << "P = ";
-        for (auto& i : P) std::cout << i << " ";
-        std::cout << std::endl;
-        std::cout << "M = ";
-        for (auto& i : M) std::cout << i << " ";
-        std::cout << std::endl;
-        std::cout << "L = " << L << std::endl;
-        std::cout << std::endl;
-#endif
     }
     output = std::vector<IndexType>(L);
     i = M[L - 1];
@@ -86,4 +70,45 @@ void LongestIncreasingSubsequence(const std::vector<T>& input,
     }
 }
 
-#endif
+int main() {
+    typedef int InputType;
+    typedef std::vector<std::vector<InputType>::size_type> OutputType;
+    typedef std::tuple<std::vector<InputType>, OutputType> IO;
+    IO in_outs[]{
+        IO{
+            {0},
+            {0},
+        },
+        IO{
+            {0, 1},
+            {0, 1},
+        },
+        IO{
+            {1, 0},
+            {   1},
+        },
+        IO{
+            {2, 0, 1},
+            {   1, 2},
+        },
+        IO{
+            {0, 2, 1},
+            {0,    2},
+        },
+        IO{
+            {1, -1, 2, 0, 1, 5, 5, 2, 3},
+            {    1,    3, 4,       7, 8},
+        },
+        IO{
+            {3, 2, 6, 4, 5, 1},
+            {   1,    3, 4   },
+        },
+    };
+    OutputType output;
+    for (auto& in_out : in_outs) {
+        auto& input           = std::get<0>(in_out);
+        auto& expected_output = std::get<1>(in_out);
+        longest_increasing_subsequence(input, output);
+        assert(output == expected_output);
+    }
+}

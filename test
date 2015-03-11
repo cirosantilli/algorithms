@@ -22,50 +22,29 @@ basenames = {
     'tac.c': TestDescription('tac'),
 }
 
-# Parse command line inputs.
-basename = sys.argv[1]
-if len(sys.argv) > 1:
-    basename = sys.argv[1]
-    if not basename in basenames.keys():
-        print 'Unknown file: ' + basename
+def assert_output(exit_status, output, expected_output, test_id = None):
+    fail = False
+    if exit_status != 0:
+        print 'Exit status != 0: {}'.format(exit_status)
+        fail = True
+    if stdout != expected_output:
+        print 'Output:\n'
+        print stdout
+        print '#' * 36
+        print 'Expected output:\n'
+        print expected_output
+        fail = True
+    if fail:
+        if test_id:
+            msg = 'Test failed: ' + test_id
+        else:
+            msg = 'A test failed.'
+        print msg
         sys.exit(1);
-else:
-    print 'Needs one argument.'
-    sys.exit(1);
 
-# Determine how to run the output.
-basename_noext, lang = os.path.splitext(basename)
-lang = lang[1:]
-lang_dir = os.path.join(src_dir, lang)
-if lang == 'c' or lang == 'cpp':
-    run_cmd = [os.path.join(lang_dir, basename_noext + '.out')]
-elif lang == 'java':
-    run_cmd = ['java', '-cp', lang_dir, basename_noext]
-
-# Build.
-os.chdir(lang_dir)
-if subprocess.call(['make', '--silent']) != 0:
-    print 'Error: Build failed.'
-    sys.exit(1);
-os.chdir(base_dir)
-
-# Get input data.
-data_dir = os.path.join(data_base_dir, basenames[basename].data)
-data_basenames = [os.path.splitext(p)[0]
-        for p
-        in os.listdir(data_dir)
-        if os.path.splitext(p)[1] == '.in'
-            and os.path.isfile(os.path.join(data_dir, p))]
-
-# Run tests.
-for data_basename in data_basenames:
-    input_path = os.path.join(data_dir, data_basename) + in_ext
-    output_path = os.path.join(data_dir, data_basename) + out_ext
-    # For debugging.
-    #print run_cmd + [input_path]
-    cwd = os.getcwd()
+def run(cmd):
     process = subprocess.Popen(
-        run_cmd + [input_path],
+        cmd,
         shell  = False,
         stdin  = None,
         stdout = subprocess.PIPE,
@@ -73,17 +52,58 @@ for data_basename in data_basenames:
         universal_newlines = True
     )
     stdout, stderr = process.communicate()
-    process.wait()
-    with open (output_path, 'r') as output_file:
-        expected_output = output_file.read()
-    if stdout != expected_output:
-        print 'Output:\n'
-        print stdout
-        print '#' * 36
-        print 'Expected output:\n'
-        print expected_output
-        print 'Test failed: ' + input_path
+    exit_status = process.wait()
+    return [exit_status, stdout]
+
+if __name__ == '__main__':
+
+    # Parse command line inputs.
+    if len(sys.argv) > 1:
+        basename = os.path.split(sys.argv[1])[1]
+    else:
+        print 'Argument missing.'
         sys.exit(1);
 
-print 'Tests passed.'
-sys.exit(0);
+    # Determine how to run the output.
+    basename_noext, lang = os.path.splitext(basename)
+    lang = lang[1:]
+    lang_dir = os.path.join(src_dir, lang)
+    if lang == 'c' or lang == 'cpp':
+        run_cmd = [os.path.join(lang_dir, basename_noext + '.out')]
+    elif lang == 'java':
+        run_cmd = ['java', '-cp', lang_dir, basename_noext]
+
+    # Build.
+    os.chdir(lang_dir)
+    if subprocess.call(['make', '--silent']) != 0:
+        print 'Error: Build failed.'
+        sys.exit(1);
+    os.chdir(base_dir)
+
+    if basename in basenames.keys():
+        # Run executable by passing the data input file to it.
+
+        # Get input data.
+        data_dir = os.path.join(data_base_dir, basenames[basename].data)
+        data_basenames = [os.path.splitext(p)[0]
+                for p
+                in os.listdir(data_dir)
+                if os.path.splitext(p)[1] == '.in'
+                    and os.path.isfile(os.path.join(data_dir, p))]
+
+        # Run tests.
+        for data_basename in data_basenames:
+            input_path = os.path.join(data_dir, data_basename) + in_ext
+            output_path = os.path.join(data_dir, data_basename) + out_ext
+            exit_status, stdout = run(run_cmd + [input_path])
+            with open(output_path, 'r') as output_file:
+                expected_output = output_file.read()
+            assert_output(exit_status, stdout, expected_output)
+    else:
+        # Run executable without any command line arguments,
+        # and check its exit status.
+        exit_status, stdout = run(run_cmd)
+        assert_output(exit_status, stdout, '')
+
+    print 'All tests passed.'
+    sys.exit(0);

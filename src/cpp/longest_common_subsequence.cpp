@@ -1,14 +1,11 @@
-#ifndef LONGEST_COMMON_H
-#define LONGEST_COMMON_H
-
+#include <algorithm>    // TODO why required?
+#include <cassert>
+#include <iostream>     // cout, endl
+#include <tuple>
 #include <vector>
 
-#ifdef DEBUG
-#include <iostream>     // cout
-#endif
-
 /**
-Calculates the [longest common subsequence](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
+Calculate the [longest common subsequence](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
 between two strings.
 
 The substrings do not need to be contiguous.
@@ -21,7 +18,7 @@ The substrings do not need to be contiguous.
 @tparam T The data type of the values of each string. Must implement `==`.
 */
 template<typename T>
-void LongestCommonSubsequence(
+void longest_common_subsequence(
         const std::vector<T>& input0,
         const std::vector<T>& input1,
         std::vector<typename std::vector<T>::size_type>& output) {
@@ -52,23 +49,6 @@ void LongestCommonSubsequence(
                 }
             }
         }
-#ifdef DEBUG_OUTPUT
-        std::cout << "i = " << i << std::endl;
-        std::cout << "length_cur  = ";
-        for (auto& i : length_cur) std::cout << i << " ";
-        std::cout << std::endl;
-        std::cout << "length_prev = ";
-        for (auto& i : length_prev) std::cout << i << " ";
-        std::cout << std::endl;
-        std::cout << "previous[i] = ";
-        for (auto it = previous[i].begin(); it != previous[i].end(); ++it) std::cout << (int)*it << " ";
-        // TODO why does auto fail to compile on g++ 4.8??
-        //for (auto& i : previous[i]) std::cout << i << " ";
-        // TODO why segfault?
-        //for (PreviousDirectionType& i : previous[i]) std::cout << i << " ";
-        std::cout << std::endl;
-        std::cout << std::endl;
-#endif
         length_prev = length_cur;
     }
     output = std::vector<SizeType>(length_cur[input1_size]);
@@ -96,4 +76,35 @@ void LongestCommonSubsequence(
     }
 }
 
-#endif
+int main() {
+    typedef int InputType;
+    typedef std::vector<std::vector<InputType>::size_type> OutputType;
+    typedef std::tuple<std::vector<InputType>,
+                       std::vector<InputType>,
+                       OutputType> IO;
+    IO in_outs[]{
+        IO{
+            {0},
+            {0},
+            {0},
+        },
+        IO{
+            {0},
+            {1},
+            {},
+        },
+        IO{
+            {2, 0, 1},
+            {0, 2, 1, 0, 3},
+            {0, 1},
+        },
+    };
+    OutputType output;
+    for (auto& in_out : in_outs) {
+        auto& input0           = std::get<0>(in_out);
+        auto& input1           = std::get<1>(in_out);
+        auto& expected_output  = std::get<2>(in_out);
+        longest_common_subsequence(input0, input1, output);
+        assert(output == expected_output);
+    }
+}

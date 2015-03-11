@@ -1,6 +1,7 @@
-#ifndef KNAPSACK01_H
-#define KNAPSACK01_H
-
+#include <algorithm>    // TODO why required?
+#include <cassert>
+#include <iostream>     // cout, endl
+#include <tuple>
 #include <vector>
 
 /**
@@ -34,7 +35,7 @@ by the GCD of all of those values, or this algorithm will be very memory innefic
 TODO is it possible to not keep the 2D accepted_items, thus reducing memory to n instead of n^2?
 */
 template<typename WEIGHT = int, typename VALUE = int>
-void Knapsack01Dynamic(const std::vector<WEIGHT>& weights,
+void knapsack01(const std::vector<WEIGHT>& weights,
         const std::vector<VALUE>& values,
         WEIGHT max_weight,
         std::vector<typename std::vector<WEIGHT>::size_type>& output,
@@ -68,4 +69,36 @@ void Knapsack01Dynamic(const std::vector<WEIGHT>& weights,
     }
 }
 
-#endif
+int main() {
+    typedef std::tuple<std::vector<int>,
+                        std::vector<int>,
+                        int,
+                        std::vector<std::vector<int>::size_type>
+                      > InOut;
+    InOut in_outs[]{
+        InOut{
+            {1, 2,  3 },
+            {6, 10, 12},
+            5,
+            {1, 2}
+        },
+        InOut{
+            {1, 2, 3, 4 , 5 },
+            {3, 8, 7, 10, 14},
+            10,
+            {1, 2, 4}
+        },
+    };
+    for (auto& in_out : in_outs) {
+        auto& weights = std::get<0>(in_out);
+        auto& values  = std::get<1>(in_out);
+        auto& max_weight  = std::get<2>(in_out);
+        auto& expected_output = std::get<3>(in_out);
+        std::vector<unsigned int> output;
+        int output_value;
+        knapsack01(weights, values, max_weight, output, output_value);
+        std::sort(output.begin(), output.end());
+        std::sort(expected_output.begin(), expected_output.end());
+        assert(output == expected_output);
+    }
+}

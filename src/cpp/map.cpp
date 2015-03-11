@@ -9,13 +9,15 @@
 #include <list>
 #include <sstream>
 
+#include "map.hpp"
 //#include "bst.hpp"
-#include "hash.hpp"
+#include "hash_map.hpp"
 
 int main() {
 
     // Choose the map type.
-    typedef Hash<int,int> map_t;
+    typedef HashMap<int,int> map_t;
+
     // TODO broken.
     //typedef Bst<int,int> map_t;
 
@@ -51,7 +53,9 @@ int main() {
 
         //<<
 
-            std::cout << mapOrig << std::endl;
+            // TODO test with stringstream
+
+            //std::cout << mapOrig << std::endl;
 
         //find
 

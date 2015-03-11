@@ -1,11 +1,11 @@
-#ifndef GRAPH_H
-#define GRAPH_H
-
+#include <algorithm> // TODO why required?
+#include <cassert>
 #include <initializer_list>
+#include <iostream> // cout, endl
 #include <list>
-#include <string>
 #include <sstream>
-#include <utility>              // pair
+#include <string>
+#include <utility> // pair
 #include <vector>
 
 /**
@@ -92,7 +92,7 @@ class GraphList {
 
             - else: this parameter shall be modified to be equal to an empty container.
         */
-        void dijikstra(const EdgeNumberType& from,
+        void dijkstra(const EdgeNumberType& from,
                     const EdgeNumberType& to,
                     std::vector<EdgeNumberType>& path) const {
             std::list<EdgeNumberType> not_visited;  // This is better as a list than an array, so that it is possible to loop over the non-visited nodes only to find the next min one.
@@ -160,7 +160,7 @@ class GraphList {
 
         Has not been implemented because there is no Fibonacci heap in the STL, only in Boost.
         */
-        void dijikstraSparse(const EdgeNumberType& from,
+        void dijkstraSparse(const EdgeNumberType& from,
                     const EdgeNumberType& to,
                     std::vector<EdgeNumberType>& path) {}
 
@@ -171,4 +171,93 @@ class GraphList {
         }
 };
 
-#endif
+int main() {
+    // Dijkstra.
+    {
+        // Input graphs and origin dest pair and expected output shortest paths.
+
+        typedef std::tuple<GraphList,
+                            std::pair<GraphList::EdgeNumberType,GraphList::EdgeNumberType>,
+                            std::vector<GraphList::EdgeNumberType> > InOut;
+
+        InOut in_outs[]{
+            // InOut needed because tuple constructors are explicit
+            // Edge case: path to self with edge to self.
+            InOut{
+                {
+                    {0, {{0, 0}}},
+                },
+                {0, 0},
+                {0, 0}
+            },
+            // Edge case: path to self with no edge to self.
+            InOut{
+                {
+                    {0, {}},
+                },
+                {0, 0},
+                {0, 0}
+            },
+            InOut{
+                {
+                    {0, {{1, 1}}},
+                    {1, {}},
+                },
+                {0, 1},
+                {0, 1}
+            },
+            InOut{
+                {
+                    {0, {{1, 1}}},
+                    {1, {{2, 1}}},
+                    {2, {}},
+                },
+                {0, 2},
+                {0, 1, 2}
+            },
+            InOut{
+                {
+                    {0, {{2, 1}}},
+                    {1, {}},
+                    {2, {{1, 1}}},
+                },
+                {0, 1},
+                {0, 2, 1}
+            },
+            // No path.
+            InOut{
+                {
+                    {0, {}},
+                    {1, {}},
+                },
+                {0, 1},
+                {}
+            },
+            // Example similar to that drawn at: <http://optlab-server.sce.carleton.ca/POAnimations2007/DijkstrasAlgo.html>
+            // Some edges have been made unidirectional, and the ambiguity resolved.
+            InOut{
+                {
+                    {0, {{1, 2}, {2, 5}, {3, 4},  }},
+                    {1, {{2, 2}, {4, 7}, {6, 12}, }},
+                    {2, {{4, 5}, {5, 3}, {3, 1},  }},
+                    {3, {{2, 1}, {5, 4},          }},
+                    {4, {{5, 1}, {7, 5},          }},
+                    {5, {{4, 1}, {7, 7},          }},
+                    {6, {{7, 3},                  }},
+                    {7, {                         }},
+                },
+                {0, 7},
+                {0, 1, 2, 5, 4, 7}
+            },
+        };
+        for (auto& in_out : in_outs) {
+            auto& graph = std::get<0>(in_out);
+            auto& origin_destination = std::get<1>(in_out);
+            auto& expected_path = std::get<2>(in_out);
+            std::vector<GraphList::EdgeNumberType> path;
+            graph.dijkstra(origin_destination.first, origin_destination.second, path);
+            assert(path == expected_path);
+        }
+    }
+}
+

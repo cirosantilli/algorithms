@@ -1,11 +1,11 @@
 # Tac
 
-## Usage
+<https://www.gnu.org/software/coreutils/manual/html_node/tac-invocation.html>
 
-Run tests for a given language:
+## Implementations
 
-    test c
-    test java
+- [tac.c](src/c/tac.c)
+- [Tac.java](src/java/Tac.java)
 
 ## Discussion
 

@@ -1,4 +1,4 @@
-TODO: broken. Was working before small refactoring, so should be simple to fix.
+# Map
 
 <http://en.wikipedia.org/wiki/Associative_array>
 
@@ -16,3 +16,9 @@ Average operation time:
 Worst case operation time: `n` for all.
 
 TODO: implement a self balancing tree like RB-tree or AVL to reduce worst case.
+
+## Implementations
+
+- [bst.cpp](src/cpp/bst.hpp)
+- [map.cpp](src/cpp/map.cpp)
+- [hash_map.cpp](src/cpp/hash_map.hpp)

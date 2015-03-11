@@ -1,5 +1,5 @@
-#ifndef HASH_H
-#define HASH_H
+#ifndef HASH_MAP_H
+#define HASH_MAP_H
 
 #include "map.hpp"
 
@@ -18,12 +18,12 @@ Hash map.
 @tparam VAL the value value of the map
 */
 template<class KEY,class VAL>
-class Hash : public Map<KEY,VAL> {
+class HashMap : public Map<KEY,VAL> {
     typedef std::vector<std::list<std::pair<KEY,VAL>>> map_t;
     public:
         using Map<KEY,VAL>::init_initializer;
         using Map<KEY,VAL>::add;
-        Hash(size_t keyCountInitial = Hash::keyCountInitialDefault,
+        HashMap(size_t keyCountInitial = HashMap::keyCountInitialDefault,
              float loadFactor = 0.7
         ):
              keyCount(keyCountInitial),
@@ -31,15 +31,15 @@ class Hash : public Map<KEY,VAL> {
              map(map_t(keyCount))
         {};
 
-        Hash(const KEY& key, const VAL& val,
-             size_t keyCountInitial = Hash::keyCountInitialDefault,
+        HashMap(const KEY& key, const VAL& val,
+             size_t keyCountInitial = HashMap::keyCountInitialDefault,
              float loadFactor = 0.7
-        ) : Hash(keyCountInitialDefault, loadFactor)
+        ) : HashMap(keyCountInitialDefault, loadFactor)
         { this->init_pair(key, val); }
 
-        Hash(std::initializer_list<std::pair<KEY,VAL>> pairs) : Hash() { this->init_initializer(pairs); }
+        HashMap(std::initializer_list<std::pair<KEY,VAL>> pairs) : HashMap() { this->init_initializer(pairs); }
 
-        virtual ~Hash() {}
+        virtual ~HashMap() {}
 
         bool add(const KEY& key, const VAL& val) {
             size_t h, newKeyCount, newSize;
@@ -122,12 +122,13 @@ class Hash : public Map<KEY,VAL> {
             return ss.str();
         }
 
-        bool operator==(const Hash<KEY,VAL>& other) const { return this->map == other.map; }
-        bool operator!=(const Hash<KEY,VAL>& other) const { return ! (this->map == other.map); }
+        bool operator==(const HashMap<KEY,VAL>& other) const { return this->map == other.map; }
+        bool operator!=(const HashMap<KEY,VAL>& other) const { return ! (this->map == other.map); }
 
     private:
         const static size_t keyCountInitialDefault = 1;
-        const static int increaseFactor = 2;             /* by how much the map size will be multiplied if it needs to grow */
+        // By how much the map size will be multiplied if it needs to grow
+        const static int increaseFactor = 2;
         size_t keyCount;
         float loadFactor;
         map_t map;
