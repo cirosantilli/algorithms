@@ -2,21 +2,33 @@
 
 Files which are WIP will get the `.off` extension appended to their original names to prevent their compilation.
 
-## Preferred program interface
+## Program interfaces
 
-The preferred program interface is:
+### Data on separate file
+
+The preferred program interface:
 
 - takes input from a data file give as a command line argument, e.g. `./program /path/to/data/0.in`
 - outputs the output to stdout
 - the exit status must be 0 on success
 
+The advantages of this method are that:
+
+- it is language agnostic
+- it factors out the error checking across all algorithms
+
 Although stdin input is more elegant as it does not require file IO, file input is more general as it allow for out-of-core considerations.
 
-File output should also be supported some day.
+File output may also be supported some day if we find cool optimizations that need it.
 
-## Alternative program interface
+### Data with the algorithm or with the language
 
-If you have just created a program, it may be faster to put the data and assertions into it directly, and only return its output via the exit status, with `0` for success and non-zero for failure.
+If you have just created a program, it may be faster to put the data and assertions into:
+
+- the algorithm file directly
+- a shared file for the language
+
+and only return its output via the exit status, with `0` for success and non-zero for failure.
 
 But it has the following downsides:
 

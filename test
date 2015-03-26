@@ -26,10 +26,13 @@ def assert_output(exit_status, output, expected_output, test_id = None):
     fail = False
     if exit_status != 0:
         print 'Exit status != 0: {}'.format(exit_status)
+        if output:
+            print 'stdout:\n'
+            print output
         fail = True
-    if stdout != expected_output:
+    elif output != expected_output:
         print 'Output:\n'
-        print stdout
+        print output
         print '#' * 36
         print 'Expected output:\n'
         print expected_output
@@ -71,7 +74,7 @@ if __name__ == '__main__':
     if lang == 'c' or lang == 'cpp':
         run_cmd = [os.path.join(lang_dir, basename_noext + '.out')]
     elif lang == 'java':
-        run_cmd = ['java', '-cp', lang_dir, basename_noext]
+        run_cmd = ['java', '-cp', lang_dir, '-ea', basename_noext]
 
     # Build.
     os.chdir(lang_dir)
@@ -103,7 +106,7 @@ if __name__ == '__main__':
         # Run executable without any command line arguments,
         # and check its exit status.
         exit_status, stdout = run(run_cmd)
-        assert_output(exit_status, stdout, '')
+        assert_output(exit_status, stdout, None)
 
     print 'All tests passed.'
     sys.exit(0);

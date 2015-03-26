@@ -1,3 +1,6 @@
+import lib.Sort;
+import lib.IntArrayConsumer;
+
 /**
 Quicksort with tail recursion optimization.
 <p>
@@ -5,9 +8,9 @@ Reduces call stack extra non-input memory worst case from N to log(N).
 <p>
 For that to be possible, it always does the tail optimization on the longest side.
 */
-public class QuickSortTail {
+public class QuickSortTail implements IntArrayConsumer {
 
-    public static void accept(final int[] in) {
+    public void accept(final int[] in) {
         acceptRecursive(in, 0, in.length - 1);
     }
 
@@ -46,8 +49,6 @@ public class QuickSortTail {
     }
 
     public static void main(String[] args) throws Throwable {
-        int[] in = Sort.parseInput(args[0]);
-        accept(in);
-        Sort.printOutput(in);
+        Sort.test(args[0], new QuickSortTail());
     }
 }

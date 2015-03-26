@@ -12,15 +12,16 @@ Infrastructure:
 
 Algorithms:
 
-- [Change making](change-making.md)
-- [Graph](graph.md)
-- [Hanoi tower](hanoi-tower.md)
-- [Knapsack](knapsack.md)
-- [Longest common subsequence](longest-common-subsequence.md)
-- [Longest increasing subsequence](longest-increasing-subsequence.md)
-- [Maximum subarray](maximum-subarray.md)
-- [Map](map.md)
-- [tac](tac.md)
+-   [Graph](graph.md)
+-   [Hanoi tower](hanoi-tower.md)
+-   [Knapsack](knapsack.md)
+    - [Change making](change-making.md)
+-   [Longest common subsequence](longest-common-subsequence.md)
+-   [Longest increasing subsequence](longest-increasing-subsequence.md)
+-   [Maximum subarray](maximum-subarray.md)
+-   [Map](map.md)
+-   [String search](string-search.md)
+-   [tac](tac.md)
 
 ## Usage
 
@@ -44,6 +45,16 @@ This will build the program, choose and feed input data to it, and check if the 
 More info at (TODO implement help command):
 
     test --help
+
+## Similar projects
+
+- <http://www3.cs.stonybrook.edu/~algorith/>. Links to tons of open source algorithm implementations that solve many problems. Each algorithm has a rating, and algorithms are all classified.
+
+- <http://en.wikibooks.org/wiki/Algorithm_Implementation>
+
+- <http://algs4.cs.princeton.edu/home/>
+
+- <https://github.com/vhf/free-programming-books/blob/master/free-programming-books.md#algorithms--data-structures>
 
 ## About
 
@@ -79,7 +90,7 @@ Problem sources without automatic online checks:
 
 ## TODO
 
-Algorithms that could be included
+Algorithms that could be included:
 
 -   <http://stackoverflow.com/questions/2113795/quickest-way-to-find-missing-number-in-an-array-of-numbers>
 
@@ -126,3 +137,15 @@ Algorithms that could be included
 -   <http://en.wikipedia.org/wiki/Partition_problem>. Partition a multiset into two sub-multisets such that the sum of each sub-multiset is equal. NP-complete.
 
     Many not have a solution, which leads to the optimization version: minimize the difference. NP-hard.
+
+-   <http://en.wikipedia.org/wiki/Stable_marriage_problem>
+
+-   <http://en.wikipedia.org/wiki/National_Resident_Matching_Program#Matching_algorithm>
+
+-   <http://en.wikipedia.org/wiki/Stable_roommates_problem>
+
+Some NP-complete ones:
+
+-   <http://en.wikipedia.org/wiki/Karp%27s_21_NP-complete_problems>
+
+-   <http://en.wikipedia.org/wiki/Vertex_cover>

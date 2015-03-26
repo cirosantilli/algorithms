@@ -1,9 +1,12 @@
 import java.util.Arrays;
 
-/** Naive quicksort recursive implementation. */
-public class QuickSort {
+import lib.Sort;
+import lib.IntArrayConsumer;
 
-    public static void accept(final int[] in) {
+/** Naive quicksort recursive implementation. */
+public class QuickSort implements IntArrayConsumer {
+
+    public void accept(final int[] in) {
         acceptRecursive(in, 0, in.length - 1);
     }
 
@@ -33,8 +36,6 @@ public class QuickSort {
     }
 
     public static void main(String[] args) throws Throwable {
-        int[] in = Sort.parseInput(args[0]);
-        accept(in);
-        Sort.printOutput(in);
+        Sort.test(args[0], new QuickSort());
     }
 }
