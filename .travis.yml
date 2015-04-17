@@ -1,0 +1,6 @@
+# Cannoe be a symlink.
+language: java
+install:
+  - sudo apt-get update
+  - sudo apt-get install make gcc g++
+script: ./test

@@ -10,6 +10,7 @@ The preferred program interface:
 
 - takes input from a data file give as a command line argument, e.g. `./program /path/to/data/0.in`
 - outputs the output to stdout
+- outputs diagnostic messages to stderr
 - the exit status must be 0 on success
 
 The advantages of this method are that:

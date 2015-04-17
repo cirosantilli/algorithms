@@ -1,4 +1,3 @@
-import lib.Heap;
 import lib.IntArrayConsumer;
 import lib.Sort;
 
@@ -10,13 +9,10 @@ public class HeapSort implements IntArrayConsumer {
         Heap.heapify(in);
         int last = in.length - 1;
         while(last >= 0) {
-            System.err.println();
-            System.err.println(last);
-            System.err.println(Arrays.toString(in));
             int buf = in[last];
             in[last] = in[0];
             in[0] = buf;
-            Heap.downHeap(in, last);
+            Heap.maxHeapify(in, 0, last);
             last--;
         }
     }
