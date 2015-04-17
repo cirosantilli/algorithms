@@ -10,10 +10,12 @@ data_base_dir = os.path.join(base_dir, 'data')
 src_dir = os.path.join(base_dir, 'src')
 in_ext = '.in'
 out_ext = '.out'
+sep = '-' * 75
 class TestDescription:
     def __init__(self, data):
         self.data = data
 basenames = {
+    'HeapSort.java': TestDescription('sort'),
     'QuickSort.java': TestDescription('sort'),
     'QuickSortTail.java': TestDescription('sort'),
     'Tac.java': TestDescription('tac'),
@@ -22,24 +24,36 @@ basenames = {
     'tac.c': TestDescription('tac'),
 }
 
-def assert_output(exit_status, output, expected_output, test_id = None):
+# Assert that the stdout is the same as the expected one, and that the exit_status is 0.
+# If not, print diagnostic error message and exit 1.
+def assert_output(exit_status, stdout, expected_stdout, stderr, test_id = None, input_path = None):
     fail = False
+    if stderr:
+        print sep
+        print 'stderr\n'
+        print stderr
+        print
     if exit_status != 0:
         print 'Exit status != 0: {}'.format(exit_status)
-        if output:
-            print 'stdout:\n'
-            print output
+        if stdout:
+            print 'stdout\n'
+            print stdout
         fail = True
-    elif output != expected_output:
-        print 'Output:\n'
-        print output
-        print '#' * 36
-        print 'Expected output:\n'
-        print expected_output
+    elif stdout != expected_stdout:
+        print 'stdout\n'
+        print stdout
+        print sep
+        print 'Expected stdout\n'
+        print expected_stdout
         fail = True
     if fail:
+        if input_path:
+            print sep
+            print 'Input\n'
+            with open(input_path, 'r') as input_file:
+                print input_file.read()
         if test_id:
-            msg = 'Test failed: ' + test_id
+            msg = 'Failed test id: ' + test_id
         else:
             msg = 'A test failed.'
         print msg
@@ -56,7 +70,7 @@ def run(cmd):
     )
     stdout, stderr = process.communicate()
     exit_status = process.wait()
-    return [exit_status, stdout]
+    return [exit_status, stdout, stderr]
 
 if __name__ == '__main__':
 
@@ -98,15 +112,16 @@ if __name__ == '__main__':
         for data_basename in data_basenames:
             input_path = os.path.join(data_dir, data_basename) + in_ext
             output_path = os.path.join(data_dir, data_basename) + out_ext
-            exit_status, stdout = run(run_cmd + [input_path])
+            exit_status, stdout, stderr = run(run_cmd + [input_path])
             with open(output_path, 'r') as output_file:
-                expected_output = output_file.read()
-            assert_output(exit_status, stdout, expected_output)
+                expected_stdout = output_file.read()
+            assert_output(exit_status, stdout, expected_stdout, stderr, data_basename, input_path)
     else:
         # Run executable without any command line arguments,
         # and check its exit status.
-        exit_status, stdout = run(run_cmd)
-        assert_output(exit_status, stdout, None)
+        # Ignore stdout. Print stderr.
+        exit_status, stdout, stderr = run(run_cmd)
+        assert_output(exit_status, stdout, stdout, stderr, None)
 
     print 'All tests passed.'
     sys.exit(0);

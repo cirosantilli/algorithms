@@ -4,24 +4,21 @@ Algorithms, data structures and algorithmic exercises.
 
 More theoretical information can be found at: <https://github.com/cirosantilli/computer-science>
 
-Infrastructure:
-
-- [src/](src/): source code of educational implementations
-- [data/](data/): data input and output for some of the problems
-- [test](test): script to test the implementations
-
-Algorithms:
-
--   [Graph](graph.md)
--   [Hanoi tower](hanoi-tower.md)
--   [Knapsack](knapsack.md)
-    - [Change making](change-making.md)
--   [Longest common subsequence](longest-common-subsequence.md)
--   [Longest increasing subsequence](longest-increasing-subsequence.md)
--   [Maximum subarray](maximum-subarray.md)
--   [Map](map.md)
--   [String search](string-search.md)
--   [tac](tac.md)
+1. Infrastructure
+    1. [src/](src/): source code of educational implementations
+    1. [data/](data/): data input and output for some of the problems
+    1. [test](test): script to test the implementations
+1.  Algorithms
+    1.  [Graph](graph.md)
+    1.  [Hanoi tower](hanoi-tower.md)
+    1.  [Knapsack](knapsack.md)
+        1. [Change making](change-making.md)
+    1.  [Longest common subsequence](longest-common-subsequence.md)
+    1.  [Longest increasing subsequence](longest-increasing-subsequence.md)
+    1.  [Maximum subarray](maximum-subarray.md)
+    1.  [Map](map.md)
+    1.  [String search](string-search.md)
+    1.  [tac](tac.md)
 
 ## Usage
 
@@ -46,13 +43,15 @@ More info at (TODO implement help command):
 
     test --help
 
-## Similar projects
+## Sources
+
+- <http://www.geeksforgeeks.org/fundamentals-of-algorithms>
+
+- <http://algs4.cs.princeton.edu/home/>, which has lots GPL Java source. This kind soul has put the source up on GitHub: <https://github.com/aistrate/AlgorithmsSedgewick>
 
 - <http://www3.cs.stonybrook.edu/~algorith/>. Links to tons of open source algorithm implementations that solve many problems. Each algorithm has a rating, and algorithms are all classified.
 
 - <http://en.wikibooks.org/wiki/Algorithm_Implementation>
-
-- <http://algs4.cs.princeton.edu/home/>
 
 - <https://github.com/vhf/free-programming-books/blob/master/free-programming-books.md#algorithms--data-structures>
 
@@ -149,3 +148,5 @@ Some NP-complete ones:
 -   <http://en.wikipedia.org/wiki/Karp%27s_21_NP-complete_problems>
 
 -   <http://en.wikipedia.org/wiki/Vertex_cover>
+
+

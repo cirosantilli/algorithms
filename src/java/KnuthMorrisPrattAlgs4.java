@@ -15,9 +15,12 @@ public class KnuthMorrisPrattAlgs4 implements Searcher {
         skip = new int[M];
         int j = -1;
         for (int i = 0; i < M; i++) {
-            if (i == 0) skip[i] = -1;
-            else if (pattern[i] != pattern[j]) skip[i] = j;
-            else skip[i] = skip[j];
+            if (i == 0)
+                skip[i] = -1;
+            else if (pattern[i] != pattern[j])
+                skip[i] = j;
+            else
+                skip[i] = skip[j];
             while (j >= 0 && pattern[i] != pattern[j]) {
                 j = skip[j];
             }
@@ -34,7 +37,8 @@ public class KnuthMorrisPrattAlgs4 implements Searcher {
                 j = skip[j];
             j++;
         }
-        if (j == M) return i - M;
+        if (j == M)
+            return i - M;
         return -1;
     }
 

@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 import lib.Sort;
 import lib.IntArrayConsumer;
 
