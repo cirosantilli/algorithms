@@ -1,6 +1,7 @@
 # Compiled languages
 *.o
-*.out
+# Must be in src, because those in data should be included.
+/src/**/*.out
 
 # Java
 *.class
