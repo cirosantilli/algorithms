@@ -1,5 +1,7 @@
 # Algorithms
 
+[![Build Status](https://travis-ci.org/cirosantilli/algorithms.svg?branch=master)](https://travis-ci.org/cirosantilli/algorithms)
+
 Algorithms, data structures and algorithmic exercises.
 
 <https://github.com/cirosantilli/computer-science> contains more theoretical discussions.
